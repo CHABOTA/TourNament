@@ -1,3 +1,56 @@
 {% extends 'base.html' %}
 {% block content %}
+<h1>Ajout d'un match</h1>
+<form method="POST">
+{% csrf_token %}
+    <div class="form-group row">
+        <label for="date_time" class="col-sm-2 col-form-label">Date du match</label>
+        <div class="col-sm-4">
+            <input type="datetime-local" class="form-control" name="date_time">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="tournament" class="col-sm-2 col-form-label">Tournois</label>
+        <div class="col-sm-4">
+            <select class="form-control" id="tournament" name="tournament">
+                <option value="" selected disabled>...</option>
+                {% for tournament in tournaments %}
+                    <option id="{{ tournament.id }}" value="{{ tournament.id }}">{{ tournament }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="teams" class="col-sm-2 col-form-label">Equipes</label>
+        <div class="d-inline-flex col-sm-8">
+            <select class="form-control me-4" id="team1" name="team1">
+                <option value="" selected disabled>Equipe 1</option>
+                {% for team in teams %}
+                    <option id="{{ team.id }}" value="{{ team.id }}">{{ team }}</option>
+                {% endfor %}
+            </select>
+            <select class="form-control" id="team2" name="team2">
+                <option value="" selected disabled>Equipe 2</option>
+                {% for team in teams %}
+                    <option id="{{ team.id }}" value="{{ team.id }}">{{ team }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Valider</button>
+</form>
+
+<br>
+<p>Liste des matchs</p>
+{% if teams %}
+  <table>
+  {% for match in matchs %}
+    <tr>
+      <a href="../matchs/{{ match.id }}">{{ match }}</a><br>
+    </tr>
+  {% endfor %}
+  </table>
+{% else %}
+  <p>Aucune équipe n'est inscrite</p>
+{% endif %}
 {% endblock %}

@@ -1,25 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Ajout d'un nouveau tournois</h1>
-<table>
-<tr>
-  <th>Sport</th><th>Saison</th><th>Action</th>
-</tr>
-<tr>
-{% for field in form %}
-  <td>{{ field }}</td>
-{% endfor %}
-  <td><button name="save">Save</button></td>
-</tr>
-{% for tournament in tournaments %}
-  <tr>
-    <td>{{ tournament.name }}</td>
-    <td>{{ tournament.value }}</td>
-    <td>
-      <button name="edit">Edit</button>
-      <button name="delete">Delete</button>
-    </td>
-  </tr>
-{% endfor %}
-</table>
+<h1>Ajout d'un tournois</h1>
+<form method="POST">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-3 me-4">
+      <input type="text" class="form-control" placeholder="Sport" name="sport">
+    </div>
+    <div class="col-3">
+      <input type="text" class="form-control" placeholder="Saison" name="saison">
+    </div>
+    <div class="col">
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </div>
+</form>
+<br>
+<p>Lists des tournois</p>
+{% if tournaments %}
+  <table>
+  {% for tournament in tournaments %}
+    <tr>
+      <td>{{ tournament }}</td>
+    </tr>
+  {% endfor %}
+  </table>
+{% else %}
+  <p>Il n'y a aucun tournois</p>
+{% endif %}
 {% endblock %}
