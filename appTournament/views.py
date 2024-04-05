@@ -14,7 +14,7 @@ def inscription(request):
         form = TeamForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("")
+            return redirect('')
     else:
         form = TeamForm()
 
@@ -31,7 +31,7 @@ def gestionMatchs(request):
         form = MatchForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("")
+            return redirect('')
     else:
         form = MatchForm()
 
@@ -40,7 +40,7 @@ def gestionMatchs(request):
         'form': MatchForm(),
         'teams': Team.objects.all(),
         'tournaments': Tournament.objects.all(),
-        'matchs': Match.objects.all(),
+        'matchs': Match.objects.all().order_by('date_time'),
     }
 
     return render(request, 'gestion-matchs.html', context)
@@ -50,7 +50,7 @@ def addTournament(request):
         form = TournamentForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("")
+            return redirect('')
     else:
         form = TournamentForm()
 
@@ -64,11 +64,14 @@ def addTournament(request):
 
 def getMatch(request, numero):
     if request.method == "POST":
-        instance = Match.objects.get(pk=numero)
-        match = UpdateMatchForm(request.POST, instance)
-        if match.is_valid():
-            match.save()
-            return redirect("")
+        form = UpdateMatchForm(request.POST)
+        if form.is_valid():
+            match_instance = Match.objects.latest('id')
+            match_instance.score_team1 = form.cleaned_data['score_team1']
+            match_instance.score_team2 = form.cleaned_data['score_team2']
+            match_instance.setWinner()
+            match_instance.save()
+            return redirect('../')
     else:
         try:
             match = get_object_or_404(Match, pk=numero)

@@ -15,7 +15,7 @@ class MatchForm(forms.ModelForm):
 class UpdateMatchForm(forms.ModelForm):
     class Meta:
         model = Match
-        fields = ['score_team1', 'score_team1']
+        fields = ['score_team1', 'score_team2']
 
 class TournamentForm(forms.ModelForm):
     class Meta:

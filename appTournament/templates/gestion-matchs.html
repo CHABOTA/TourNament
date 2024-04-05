@@ -46,7 +46,12 @@
   <table>
   {% for match in matchs %}
     <tr>
-      <a href="../matchs/{{ match.id }}">{{ match }}</a><br>
+      <p>
+        <a href="../matchs/{{ match.id }}">{{ match }}</a>
+        {% if match.winner %}
+             -> vainqueur : {{ match.winner }}
+        {% endif %}
+        </p>
     </tr>
   {% endfor %}
   </table>
