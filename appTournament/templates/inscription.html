@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Inscription d'une équipe</h1>
+<form method="POST">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-3">
+      <input type="text" class="form-control" placeholder="Nom de l'équipe" name="name">
+    </div>
+    <div class="col">
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </div>
+</form>
+<br>
+<p>Nom des équipes déjà inscrites</p>
+{% if teams %}
+  <table>
+  {% for team in teams %}
+    <tr>
+      <td>{{ team.name }}</td>
+    </tr>
+  {% endfor %}
+  </table>
+{% else %}
+  <p>Aucune equipe n'est inscrite</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Ajout d'un nouveau tournois</h1>
+<table>
+<tr>
+  <th>Sport</th><th>Saison</th><th>Action</th>
+</tr>
+<tr>
+{% for field in form %}
+  <td>{{ field }}</td>
+{% endfor %}
+  <td><button name="save">Save</button></td>
+</tr>
+{% for tournament in tournaments %}
+  <tr>
+    <td>{{ tournament.name }}</td>
+    <td>{{ tournament.value }}</td>
+    <td>
+      <button name="edit">Edit</button>
+      <button name="delete">Delete</button>
+    </td>
+  </tr>
+{% endfor %}
+</table>
+{% endblock %}
