@@ -14,7 +14,7 @@ def inscription(request):
         form = TeamForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('')
+            return redirect('./')
     else:
         form = TeamForm()
 
@@ -31,7 +31,7 @@ def gestionMatchs(request):
         form = MatchForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('')
+            return redirect('./')
     else:
         form = MatchForm()
 
@@ -50,7 +50,7 @@ def addTournament(request):
         form = TournamentForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('')
+            return redirect('./')
     else:
         form = TournamentForm()
 
